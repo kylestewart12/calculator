@@ -1,0 +1,80 @@
+#container {
+    position: absolute;
+    top: 100px;
+    left: 500px;
+    width: 300px;
+    height: 300px;
+    background-color: black;
+}
+
+table {
+    align-content: center;
+    width: 100%;
+}
+
+#display {
+    width: 94%;
+    margin-left: 2.5%;
+    height: 20%;
+    border: 1px solid grey;
+    background-color: white;
+    text-align: right;
+    align-content: bottom;
+    font-size: 30pt;
+}
+
+button {
+    text-align: center;
+    font-size: 20pt;
+    box-shadow: 1px grey;
+}
+
+table {
+    height: 60%;
+    width: 94%;
+    margin-left: 3%;
+}
+
+tr {
+    height: 10%;
+}
+
+tr button {
+    height: 100%;
+    width: 100%;
+}
+
+.delete {
+    margin-left: 5%;
+}
+.delete button {
+    padding: 2px;
+    height: 15%;
+    width: 47%;
+    background-color: red;
+    color: white;
+}
+
+#backspace {
+    background-color: orange;
+}
+
+.number {
+    color: white;
+    background-color: grey;
+}
+
+#decimal {
+    color: white;
+    background-color: grey;
+}
+
+.operator {
+    background-color: blue;
+    color: white;
+}
+
+#equals{
+    background-color: blue;
+    color: white;
+}
