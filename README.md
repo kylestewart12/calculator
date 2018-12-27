@@ -1,0 +1,1 @@
+Simple four-function calculator web application. The basic version simply displays the entered and calculated values. The "fancy" version uses a textbox for easier input and cleaner evaluation.
