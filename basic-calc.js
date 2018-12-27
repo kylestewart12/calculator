@@ -15,13 +15,46 @@ function divide(x,y){
 }
 
 function operate(operator, x, y){
-    return operator(x, y);
+    let xNum = Number(x);
+    let yNum = Number(y);
+    let result = operator(xNum, yNum);
+    if(Math.round(result) == result){
+        return result;
+    }
+    else{
+        return round(result);
+    }
 }
 
+function backspace(){
+    display.textContent = display.textContent.slice(0, -1);
+    displayVal = display.textContent;
+}
+
+function clearVals(){
+    displayVal = 0;
+    storedVal = 0;
+    display.textContent = "";
+    opChoice = null;
+}
+
+function equals(){
+    if (!opChoice){
+        display.textContent = displayVal;
+    }
+    else{
+        displayVal = operate(opChoice, storedVal, displayVal);
+        display.textContent = displayVal;
+        opChoice = null;
+    }
+}
+function round(num){
+    return num.toFixed(9 - Math.round(Math.log10(num)))
+}
 const display = document.querySelector("#display");
 const digits = document.querySelectorAll(".number");
 const operators = document.querySelectorAll(".operator");
-const equals = document.querySelector("#equals");
+const equalsButton = document.querySelector("#equals");
 const clear = document.querySelector("#clear");
 const back = document.querySelector("#backspace");
 
@@ -44,8 +77,7 @@ digits.forEach(digit => digit.addEventListener("click", function(e){
 }));
 
 document.addEventListener("keydown", function(e){
-    console.log(e.which);
-    if (e.which >= 48 && e.which <=57){
+    if (e.key >= 0 && e.key <=9){
         const num = String.fromCharCode(e.which);
 
         const key = document.querySelector(`#num${num}`);
@@ -58,13 +90,33 @@ document.addEventListener("keydown", function(e){
         displayVal = Number(display.textContent);
         }
     }
+    else if(e.key=="Backspace"){
+        backspace();
+    }
+    else if(e.key=="c"){
+        clearVals();
+    }
+    else if(e.key=="Enter" || e.key=="="){
+        equals();
+    }
+    else if(e.key=="+"){
+        opChoice = add;
+    }
+    else if(e.key=="-"){
+        opChoice = subtract;
+    }
+    else if(e.key=="*"){
+        opChoice = multiply;
+    }
+    else if(e.key=="/"){
+        opChoice = divide;
+    }
 })
 
 operators.forEach(operator => operator.addEventListener("click", function(e){
     if (opChoice != null){
         displayVal = operate(opChoice, storedVal, displayVal);
         display.textContent = displayVal;
-        opChoice = null;
     }
     switch(e.target.id){
         case "add":
@@ -85,24 +137,6 @@ operators.forEach(operator => operator.addEventListener("click", function(e){
     displayVal = 0;
 }))
 
-equals.addEventListener("click", function(e){
-    if (!opChoice){
-        display.textContent = Number(displayVal);
-    }
-    else{
-        displayVal = operate(opChoice, storedVal, displayVal);
-        display.textContent = displayVal;
-        opChoice = null;
-    }
-})
-
-clear.addEventListener("click", function(e){
-    displayVal = 0;
-    storedVal = 0;
-    display.textContent = "";
-    opChoice = null;
-})
-
-back.addEventListener("click", function(){
-    display.textContent = display.textContent.slice(0, -1);
-})
+equalsButton.addEventListener("click", equals);
+clear.addEventListener("click", clearVals);
+back.addEventListener("click", backspace);
